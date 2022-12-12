@@ -1,4 +1,5 @@
 import styles from "./Card.module.css";
+import { Link } from "react-router-dom";
 
 const Card = (props) => {
 
@@ -15,9 +16,9 @@ const Card = (props) => {
         <div className={`card-body ${styles.CardBody}`}>
           {/* Na linha seguinte o link deverá utilizar a matricula, nome e sobrenome do dentista
           que vem da API */}
-          <a href={`/dentist/${props.registration}`}>
+          <Link to={`/dentist/${props.registration}`}>
             <h5 className={`card-title ${styles.title}`}>{props.name}</h5>
-          </a>
+          </Link>
         </div>
       </div>
     </>
