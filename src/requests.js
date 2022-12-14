@@ -34,3 +34,20 @@ export const getDentistId = async (id) =>
         console.error(error)
     }
 }
+
+//Autenticar Usuario
+export const authUser = async (user, passw) => {
+    try {
+        const response = await axios.post(`${mainRoute}/auth`,
+            {
+                username: user,
+                password: passw
+            });
+
+        return response.data;
+        
+        }catch(error)
+        {
+            console.error(error);
+        }
+    }
