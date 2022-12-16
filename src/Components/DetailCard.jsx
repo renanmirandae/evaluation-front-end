@@ -1,8 +1,9 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import ScheduleFormModal from "./ScheduleFormModal";
 import styles from "./DetailCard.module.css";
 import { useParams } from "react-router-dom";
 import { getDentistId } from "../requests";
+import { TokenContext } from "../Contexts/TokenContext";
 
 const DetailCard = () => {
 
@@ -10,6 +11,7 @@ const DetailCard = () => {
   const id = params.id;
 
   const [dentist, setDentist] = useState({});
+  const {token} = useContext(TokenContext);
 
 
   //Metodo que armazena os dentistas dentro do estado
@@ -23,11 +25,11 @@ const DetailCard = () => {
     //id do dentista que está vindo do react-router e carregar os dados em algum estado
     saveDentist(id);
   }, []);
-
   
   return (
     //As instruções que estão com {''} precisam ser 
     //substituídas com as informações que vem da api
+    
     <>
       <h1>Detalhes sobre {dentist.nome} </h1>
       <section className="card col-sm-12 col-lg-6 container">

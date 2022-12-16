@@ -51,3 +51,15 @@ export const authUser = async (user, passw) => {
             console.error(error);
         }
     }
+
+//Buscar Pacientes
+export const findPatient = async () =>
+{
+    try
+    {
+
+    }catch(error)
+    {
+        console.error(error);
+    }
+}

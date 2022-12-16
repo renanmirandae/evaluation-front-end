@@ -1,23 +1,24 @@
 import styles from "./Form.module.css";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { ErrorLogin } from "./ErrorLogin";
 import { authUser } from "../requests";
-import { redirect } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { TokenContext } from "../Contexts/TokenContext";
+import { ThemeContext } from "../Contexts/ThemeContext";
 
 const LoginForm = () => {
+
+  const navigate = useNavigate();
+
+  const { setTokenInStorage, getTokenFromStorage } = useContext(TokenContext);
 
   const [login, setLogin] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState(false);
 
+  const { isDark } = useContext(ThemeContext);
+
   const handleSubmit = async (e) => {
-    //Nesse handlesubmit você deverá usar o preventDefault,
-    //enviar os dados do formulário e enviá-los no corpo da requisição 
-    //para a rota da api que faz o login /auth
-    //lembre-se que essa rota vai retornar um Bearer Token e o mesmo deve ser salvo
-    //no localstorage para ser usado em chamadas futuras
-    //Com tudo ocorrendo corretamente, o usuário deve ser redirecionado a página principal,com react-router
-    //Lembre-se de usar um alerta para dizer se foi bem sucedido ou ocorreu um erro
 
     e.preventDefault();
 
@@ -25,14 +26,14 @@ const LoginForm = () => {
     const tokenAcess = await authUser(login, password);
 
     //Cado as credenciais estejam corretas
-    if(tokenAcess != undefined)
+    if (tokenAcess !== undefined && login.length > 5)
     {
       //Armazenando token no localStorage
-      localStorage.setItem("token", tokenAcess.token);
-      setErrorMessage(false);
-      console.log("logamos");
+      setTokenInStorage({ token: tokenAcess.token });
 
-      return redirect('home');
+      setErrorMessage(false);
+
+      return navigate("/home");
 
     }else
     {
@@ -41,13 +42,15 @@ const LoginForm = () => {
     }
   };
 
+  console.log(getTokenFromStorage());
+
 
   return (
     <>
-      {/* //Na linha seguinte deverá ser feito um teste se a aplicação
-        // está em dark mode e deverá utilizar o css correto */}
+
       <div
-        className={`text-center card container ${styles.card}`}
+        className={!isDark ? `text-center card container ${styles.card}`
+          : `text-center card dark container ${styles.card}`}
       >
         <div className={`card-body ${styles.CardBody}`}>
           <form onSubmit={handleSubmit}>
