@@ -47,7 +47,7 @@ const ScheduleForm = () => {
                 Dentist
               </label>
               <select className="form-select" name="dentist" id="dentist">
-                {console.log(pacients)}
+                
                 {dentists.map(
                   dentist => {
                     return(<option key={dentist.matricula} value={dentist.matricula}>{dentist.nome} {dentist.sobrenome}</option>);

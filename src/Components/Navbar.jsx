@@ -46,16 +46,8 @@ const Navbar = () => {
                 <Link className="nav-link" to="/home">Home</Link>
               </li>
               <li className={`nav-item ${styles.navBarLink}`}>
-                {/* Se o usuário estiver logado, deverá aparecer um botão de logout
-                que vai apagar o token do localstorage.
-                Se o usuário estiver deslogado, um link fará um redirecionamento, com react-router,
-                ao formulário de login
-                O botão de logout deverá ser testado darkmode
-                se sim, btn-dark, se não, btn-light */
-                
-                }
+
                 <Link className="nav-link" to="/login" onClick={() => getTokenFromStorage ? removeTokenFromStorage() : ""}>{getTokenFromStorage() ? "Logout" : "Login"}</Link>
-                {console.log(getTokenFromStorage())}
               </li>
               <li className={`nav-item`}>
 
