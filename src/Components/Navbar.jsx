@@ -9,7 +9,7 @@ const Navbar = () => {
 
   const {isDark, chooseTheme} = useContext(ThemeContext);
   const {isLogged} = useContext(IsLoggedContext);
-  const { setTokenInStorage, getTokenFromStorage } = useContext(TokenContext);
+  const { setTokenInStorage, getTokenFromStorage, removeTokenFromStorage } = useContext(TokenContext);
 
   return (
     <header className="sticky-top">
@@ -54,10 +54,8 @@ const Navbar = () => {
                 se sim, btn-dark, se não, btn-light */
                 
                 }
-                <Link className="nav-link" to="/home">Home</Link>
-                <a className="nav-link" href="/login">
-                  {getTokenFromStorage ? "Logout" : "Login"}
-                </a>
+                <Link className="nav-link" to="/login" onClick={() => getTokenFromStorage ? removeTokenFromStorage() : ""}>{getTokenFromStorage() ? "Logout" : "Login"}</Link>
+                {console.log(getTokenFromStorage())}
               </li>
               <li className={`nav-item`}>
 

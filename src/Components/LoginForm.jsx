@@ -42,8 +42,6 @@ const LoginForm = () => {
     }
   };
 
-  console.log(getTokenFromStorage());
-
 
   return (
     <>

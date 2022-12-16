@@ -1,10 +1,28 @@
 import { useContext, useEffect, useState } from "react";
+import { findPatient, getDentist } from "../requests";
 import styles from "./ScheduleForm.module.css";
 
+
 const ScheduleForm = () => {
+
+  const [dentists, setDentists] = useState([]);
+  const [pacients, setPacients] = useState([]);
+
+    //Metodo que armazena os dentistas dentro do estado
+    const savePacients= async () => {
+      setPacients(await findPatient());
+    }
+
+  //Metodo que armazena os dentistas dentro do estado
+  const saveDentists = async () => {
+    setDentists(await getDentist());
+  }
+
   useEffect(() => {
     //Nesse useEffect, você vai fazer um fetch na api buscando TODOS os dentistas
     //e pacientes e carregar os dados em 2 estados diferentes
+    saveDentists();
+    savePacients();
   }, []);
 
   const handleSubmit = (event) => {
@@ -13,12 +31,11 @@ const ScheduleForm = () => {
     //para a rota da api que marca a consulta
     //lembre-se que essa rota precisa de um Bearer Token para funcionar.
     //Lembre-se de usar um alerta para dizer se foi bem sucedido ou ocorreu um erro
+    event.preventDefault();
   };
 
   return (
     <>
-      {/* //Na linha seguinte deverá ser feito um teste se a aplicação
-        // está em dark mode e deverá utilizar o css correto */}
       <div
         className={`text-center container}`
         }
@@ -30,10 +47,13 @@ const ScheduleForm = () => {
                 Dentist
               </label>
               <select className="form-select" name="dentist" id="dentist">
-                {/*Aqui deve ser feito um map para listar todos os dentistas*/}
-                <option key={'Matricula do dentista'} value={'Matricula do dentista'}>
-                  {`Nome Sobrenome`}
-                </option>
+                {console.log(pacients)}
+                {dentists.map(
+                  dentist => {
+                    return(<option key={dentist.matricula} value={dentist.matricula}>{dentist.nome} {dentist.sobrenome}</option>);
+                  }
+                )}
+
               </select>
             </div>
             <div className="col-sm-12 col-lg-6">

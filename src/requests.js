@@ -58,6 +58,10 @@ export const findPatient = async () =>
     try
     {
 
+        const response = await axios.get(`${mainRoute}/paciente`);
+
+        return await response.data;
+
     }catch(error)
     {
         console.error(error);
